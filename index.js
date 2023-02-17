@@ -24,6 +24,25 @@ app.use((err, req, res, next) => {
     res.status(status).send(err.message);
 })
 
+// Handle the signup form submission
+app.post('/users', (req, res) => {
+    // Get the form data from the request body
+    const {username, email, password, confirm_password} = req.body;
+
+    // Check if the password and confirmation password match
+    if (password !== confirm_password) {
+        res.status(400).send('Passwords do not match');
+        return;
+    }
+
+    // TODO: Check if the username and email are available and meet any other criteria you have for user accounts
+
+    // If everything is valid, create the new user account
+    // TODO: Write code to create a new user account
+
+    res.send('Thanks for signing up!');
+});
+
 app.listen(port, () => {
     console.log(`App running. Docs at http://localhost:${port}/docs`);
-})
+});
