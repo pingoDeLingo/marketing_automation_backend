@@ -10,9 +10,11 @@ echo "Please enter the database name:"
 read db_name
 
 #Create the database
-mysql -u $db_username -p$db_password -e "CREATE DATABASE $db_name"
+"C:\Program Files\MySQL\MySQL Server 8.0\bin\mysql" -u$db_username -p$db_password -e "CREATE DATABASE $db_name"
+
 #Create the tables
-mysql -u $db_username -p$db_password $db_name < database.sql
+"C:\Program Files\MySQL\MySQL Server 8.0\bin\mysql" -u$db_username -p$db_password $db_name < database.sql
+
 
 #Create environment variables file
 echo "PORT=3000"> .env
