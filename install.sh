@@ -1,30 +1,22 @@
-# Install Node dependencies
-npm install
+#!/bin/bash
 
-#Ask for the database credentials
-echo "Please enter the database username:"
-read db_username
-echo "Please enter the database password:"
-read db_password
-echo "Please enter the database name:"
-read db_name
+session_secret=$(openssl rand -base64 32)
 
-#Create the database
-"C:\Program Files\MySQL\MySQL Server 8.0\bin\mysql" -u$db_username -p$db_password -e "CREATE DATABASE $db_name"
+# Load environment variables from .env file
+if [ -f .env ]; then
+  source .env
+else
+  echo "Error: .env file not found. Make sure you have created an .env file with the necessary environment variables."
+  exit 1
+fi
 
-#Create the tables
-"C:\Program Files\MySQL\MySQL Server 8.0\bin\mysql" -u$db_username -p$db_password $db_name < database.sql
+# Create the database
+mysql -u$DB_USER -p$DB_PASS -e "CREATE DATABASE $DB_NAME"
 
+# Create the tables
+mysql -u$DB_USER -p$DB_PASS $DB_NAME < database.sql
 
-#Create environment variables file
-echo "PORT=3000"> .env
-echo "DB_HOST=localhost">> .env
-echo "DB_USER=$db_username">> .env
-echo "DB_PASS=$db_password">> .env
-echo "DB_NAME=$db_name">> .env
-echo "SESSION_SECRET=secret">> .env
+echo "SESSION_SECRET=$session_secret" >> .env
 
-#Start the application
+# Start the application
 npm start
-
-
