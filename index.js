@@ -2,7 +2,6 @@ const express = require('express');
 const swaggerUi = require('swagger-ui-express');
 const YAML = require('yamljs');
 const swaggerDocument = YAML.load('./swagger.yaml');
-const cookieParser = require("cookie-parser");
 const sessions = require('express-session');
 var parseUrl = require('body-parser');
 const app = express();
@@ -22,7 +21,6 @@ app.use(sessions({
     resave: false
 }));
 
-app.use(cookieParser());
 
 var con = mysql.createConnection({
     host: "localhost",
