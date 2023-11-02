@@ -33,4 +33,4 @@ fi
 mysql -u$DB_USER -p$DB_PASS $DB_NAME < data/database.sql
 
 # Start the application
-#npm start
+npm start
